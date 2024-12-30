@@ -1,0 +1,17 @@
+name: it-tools
+services:
+  app:
+    image: corentinth/it-tools:latest
+    container_name: it-tools
+    hostname: tools
+    restart: always
+    pull_policy: always
+    ports:
+      - '172.17.0.1:60018:80'
+    networks:
+      - it-tools
+
+networks:
+  it-tools:
+    name: it-tools
+    external: false
