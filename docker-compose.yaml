@@ -1,0 +1,28 @@
+# nginx proxy address - http://172.17.0.1:60018
+
+name: it-tools
+x-logging: &default-logging
+  options:
+    max-size: '5m'
+    max-file: '1'
+  driver: json-file
+
+services:
+  app:
+    image: corentinth/it-tools:latest
+    container_name: it-tools-app
+    hostname: ${BASE_HOST_NAME:-$HOSTNAME}
+    restart: always
+    pull_policy: always
+    logging: *default-logging
+    environment:
+      - TZ=${TZ:-America/New_York}
+    ports:
+      - '172.17.0.1:60018:80'
+    networks:
+      - it-tools
+
+networks:
+  it-tools:
+    name: it-tools
+    external: false
